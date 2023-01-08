@@ -1,18 +1,13 @@
 let translateFrom = document.querySelector('#translateFrom');
 let translateTo = document.querySelector('#translateTo');
 
-const GET_URL = 'https://text-translator2.p.rapidapi.com/getLanguages'
 
-const OPTIONS = {
+const options = {
 method: 'get',
-headers: {
-    'X-RapidAPI-Key': '11d2ae6882msh5eddf09838d1457p1a180bjsnaf61a6d68e70',
-    'X-RapidAPI-Host': 'text-translator2.p.rapidapi.com'
-    }
 }
 let source_language = 'es';
-let target_language = 'af';
-fetch(GET_URL, OPTIONS)
+let target_language = 'en';
+fetch("http://localhost:3000/languages", options)
 .then(res => res.json())
 .then(objeto => {
     let lenguages = objeto.data.languages;
@@ -53,13 +48,11 @@ translate.addEventListener('click', ()=>{
         method: 'POST',
         headers: {
             'content-type': 'application/x-www-form-urlencoded',
-            'X-RapidAPI-Key': '11d2ae6882msh5eddf09838d1457p1a180bjsnaf61a6d68e70',
-            'X-RapidAPI-Host': 'text-translator2.p.rapidapi.com'
         },
         body: encodedParams
     };
 
-    fetch('https://text-translator2.p.rapidapi.com/translate', options)
+    fetch('http://localhost:3000/traslation', options)
         .then(response => response.json())
         .then(response => trasnlateTo.value = response.data.translatedText)
         .catch(err => console.error(err));
